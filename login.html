@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SilentADX</title>
+  <meta name="description" content="Login to access SilentADX premium courses and tutorials.">
+  <meta name="keywords" content="login, SilentADX, web development">
+  <meta name="author" content="SilentADX">
+  
+  <!-- Favicon (add if you have one) -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- CSS -->
+   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="../css/login.css">  <!-- Updated path for consistency -->
+  
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <h1>SilentADX Login</h1>
+      <p>Access premium courses and tutorials</p>
+      
+      <div class="tabs">
+        <button id="login-tab" class="tab active">Login</button>
+        <button id="register-tab" class="tab">Register</button>
+      </div>
+      
+      <form id="login-form" class="form">
+        <label for="email" style="display: none;">Email</label>  <!-- Hidden label for accessibility -->
+        <input type="email" id="email" placeholder="Email" required>
+        <label for="password" style="display: none;">Password</label>  <!-- Hidden label for accessibility -->
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit" id="submit-btn">Login</button>
+      </form>
+      
+      <form id="forgot-password-form" class="form" style="display: none;">
+        <label for="reset-email" style="display: none;">Email</label>  <!-- Hidden label for accessibility -->
+        <input type="email" id="reset-email" placeholder="Enter your email" required>
+        <label for="otp-input" style="display: none;">OTP</label>  <!-- Hidden label for accessibility -->
+        <input type="text" id="otp-input" placeholder="Enter OTP" style="display: none;" required>
+        <label for="new-password-input" style="display: none;">New Password</label>  <!-- Hidden label for accessibility -->
+        <input type="password" id="new-password-input" placeholder="New Password" style="display: none;" required>
+        <button type="button" id="reset-submit-btn">Send OTP</button>
+        <button type="button" id="verify-otp-btn" style="display: none;">Verify OTP</button>
+        <button type="button" id="update-password-btn" style="display: none;">Update Password</button>
+        <a href="#" id="back-to-login">Back to Login</a>
+      </form>
+      
+      <p><a href="#" id="forgot-password-link">Forgot Password?</a></p>
+      <p id="auth-msg" style="color: red; display: none;"></p>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="../js/login.js"></script>
+</body>
+</html>

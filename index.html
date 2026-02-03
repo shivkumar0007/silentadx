@@ -3,9 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>SilentADX – Learn Web Development Visually</title>
+  <meta name="description" content="Master web development with interactive 2D animated tutorials, real code examples, and premium modules. Perfect for beginners and pros alike.">
+  <meta name="keywords" content="web development, HTML, CSS, JavaScript, tutorials, animations, coding">
+  <meta name="author" content="SilentADX">
+  
+  <!-- Favicon (add if you have one) -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  <h1>shiv</h1>
+  <header>
+    <div class="container">
+      <h1>SilentADX</h1>
+      <p>Web Development Explained with 2D Animation</p>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="tutorials.html">Tutorials</a></li>
+        <li><a href="code.html">Code</a></li>
+        <li><a href="premium.html">Premium</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" id="login-link">Login</a></li>
+      </ul>
+      <!-- Sliding indicator (animated via JS) -->
+      <span class="nav-indicator"></span>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>Learn Web Development Visually 🚀</h2>
+        <p>Master HTML, CSS, JavaScript, and real-world logic through engaging 2D animations and hands-on examples.</p>
+        <a href="tutorials.html" class="cta-button">Start Learning Now</a>
+        <div id="premium-access" style="display: none;">
+          <a href="premium.html" class="cta-button">Access Premium Courses</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <h2>Why Choose SilentADX?</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>🎥 Animated Tutorials</h3>
+            <p>Complex web concepts broken down with clean, engaging 2D animations that make learning fun and intuitive.</p>
+          </div>
+          <div class="card">
+            <h3>💻 Code Examples</h3>
+            <p>Practical, beginner-friendly code snippets with real-world applications. Copy, paste, and experiment!</p>
+          </div>
+          <div class="card">
+            <h3>🔒 Premium Modules</h3>
+            <p>Unlock deep-dive animated courses, exclusive projects, and personalized support for serious learners.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <div class="container">
+        <h2>What Our Learners Say</h2>
+        <blockquote>
+          "SilentADX made web development click for me! The animations are a game-changer." – Alex, Beginner Developer
+        </blockquote>
+        <blockquote>
+          "Finally, a resource that explains JS closures visually. Highly recommend!" – Jordan, Experienced Coder
+        </blockquote>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 SilentADX. All rights reserved.</p>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script>
+    // Login check and nav update
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    const loginLink = document.getElementById('login-link');
+    const premiumAccess = document.getElementById('premium-access');
+
+    if (loggedInUser) {
+      // User is logged in
+      loginLink.textContent = 'Logout';
+      loginLink.href = '#';
+      loginLink.addEventListener('click', () => {
+        localStorage.removeItem('loggedInUser');
+        location.reload();  // Reload to show login state
+      });
+      premiumAccess.style.display = 'inline-block';  // Show premium access button
+    } else {
+      // User not logged in
+      loginLink.textContent = 'Login';
+      loginLink.href = 'login.html';
+      premiumAccess.style.display = 'none';  // Hide premium access
+    }
+  </script>
+
+  <!-- ADS (paste network script below when ready) -->
+  <!--
+  <script src="PASTE_AD_SCRIPT_HERE"></script>
+  -->
 </body>
 </html>

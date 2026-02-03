@@ -1,0 +1,219 @@
+/* ===============================
+   LOGIN PAGE - ALTERNATIVE MODERN DESIGN
+=============================== */
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  font-family: 'Roboto', sans-serif;
+  color: #e5e7eb;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+.login-container {
+  background: rgba(30, 41, 59, 0.9); /* Semi-transparent dark background */
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  padding: 60px 50px;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  position: relative;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #38bdf8, #0ea5e9, #38bdf8);
+  border-radius: 20px 20px 0 0;
+}
+
+.login-container h1 {
+  margin-bottom: 20px;
+  font-weight: 800;
+  font-size: 2.8rem;
+  color: #38bdf8;
+  text-shadow: 0 2px 10px rgba(56, 189, 248, 0.5);
+  letter-spacing: 1.2px;
+}
+
+.login-container p {
+  margin-bottom: 40px;
+  color: #cbd5f5;
+  font-weight: 400;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column; /* Ensures vertical stacking: email input, then password input, then login button */
+  gap: 25px; /* Space between each element */
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  padding: 18px 20px;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: rgba(51, 65, 85, 0.8);
+  color: #e5e7eb;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.login-form input[type="email"]::placeholder,
+.login-form input[type="password"]::placeholder {
+  color: #94a3b8;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #38bdf8;
+  background: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  transform: translateY(-2px);
+}
+
+.login-form button {
+  padding: 18px 0;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #020617;
+  font-weight: 700;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-form button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.login-form button:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.login-form button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(56, 189, 248, 0.6);
+}
+
+.login-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+#auth-msg {
+  margin-top: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  min-height: 28px;
+  color: #f87171; /* error red */
+  transition: color 0.3s ease;
+}
+
+#auth-msg.success {
+  color: #4ade80; /* success green */
+}
+
+/* Tabs if needed */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+  gap: 15px;
+}
+
+.tab {
+  flex: 1;
+  padding: 16px 0;
+  cursor: pointer;
+  background: rgba(51, 65, 85, 0.8);
+  color: #94a3b8;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  user-select: none;
+  border: 2px solid transparent;
+  font-size: 1.1rem;
+}
+
+.tab.active {
+  background: #38bdf8;
+  color: #020617;
+  border-color: #0ea5e9;
+  box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 40px 30px;
+    width: 90%;
+    margin: 20px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .login-container h1 {
+    font-size: 2.2rem;
+  }
+
+  .login-form {
+    gap: 20px;
+  }
+
+  .login-form input[type="email"],
+  .login-form input[type="password"] {
+    padding: 16px 18px;
+    font-size: 1rem;
+  }
+
+  .login-form button {
+    padding: 16px 0;
+    font-size: 1.1rem;
+  }
+
+  .tabs {
+    gap: 10px;
+  }
+
+  .tab {
+    padding: 14px 0;
+    font-size: 1rem;
+  }
+}

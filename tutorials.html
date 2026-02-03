@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Tutorials - SilentADX</title>
+  <meta name="description" content="Watch engaging 2D animated video tutorials on web development topics like JavaScript, HTML, CSS, and more. Learn visually with SilentADX.">
+  <meta name="keywords" content="web development, video tutorials, JavaScript, HTML, CSS, animations, coding">
+  <meta name="author" content="SilentADX">
+  
+  <!-- Favicon (add if you have one) -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>SilentADX</h1>
+      <p>Web Development Explained with 2D Animation</p>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tutorials.html" class="active">Tutorials</a></li>
+        <li><a href="code.html">Code</a></li>
+        <li><a href="premium.html">Premium</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <!-- Sliding indicator (animated via JS) -->
+      <span class="nav-indicator"></span>
+    </div>
+  </nav>
+
+  <main>
+    <section class="tutorials">
+      <div class="container">
+        <h2>🎥 Web Development Video Tutorials</h2>
+        <p>Engage with our 2D animated videos that break down complex concepts into simple, visual explanations. Perfect for visual learners!</p>
+        
+        <!-- Category Tabs (optional, for filtering videos) -->
+        <div class="tabs">
+          <button class="tab-button active" data-category="all">All</button>
+          <button class="tab-button" data-category="javascript">JavaScript</button>
+          <button class="tab-button" data-category="html">HTML</button>
+          <button class="tab-button" data-category="css">CSS</button>
+        </div>
+        
+        <div class="cards">
+          <div class="card" data-category="javascript">
+            <h3>JavaScript Execution Context (Animated)</h3>
+            <iframe width="100%" height="315"
+              src="https://www.youtube.com/embed/VIDEO_ID"
+              title="JavaScript Execution Context Animated Tutorial"
+              allowfullscreen>
+            </iframe>
+            <p>This video explains how JS code runs internally, covering execution contexts, scopes, and the call stack.</p>
+          </div>
+
+          <div class="card" data-category="javascript">
+            <h3>Understanding Closures in JavaScript</h3>
+            <iframe width="100%" height="315"
+              src="https://www.youtube.com/embed/ANOTHER_VIDEO_ID"
+              title="Understanding Closures in JavaScript Tutorial"
+              allowfullscreen>
+            </iframe>
+            <p>Learn how closures work with fun animations. See how inner functions retain access to outer variables.</p>
+          </div>
+
+          <div class="card" data-category="html">
+            <h3>HTML Semantic Elements Explained</h3>
+            <iframe width="100%" height="315"
+              src="https://www.youtube.com/embed/HTML_VIDEO_ID"
+              title="HTML Semantic Elements Explained Tutorial"
+              allowfullscreen>
+            </iframe>
+            <p>Discover why semantic HTML matters for accessibility and SEO, with visual examples.</p>
+          </div>
+
+          <div class="card" data-category="css">
+            <h3>CSS Flexbox in 2D Animation</h3>
+            <iframe width="100%" height="315"
+              src="https://www.youtube.com/embed/CSS_VIDEO_ID"
+              title="CSS Flexbox in 2D Animation Tutorial"
+              allowfullscreen>
+            </iframe>
+            <p>Master Flexbox layouts with animated demonstrations of properties like justify-content and align-items.</p>
+          </div>
+
+          <div class="card" data-category="javascript">
+            <h3>Async/Await Made Simple</h3>
+            <iframe width="100%" height="315"
+              src="https://www.youtube.com/embed/ASYNC_VIDEO_ID"
+              title="Async/Await Made Simple Tutorial"
+              allowfullscreen>
+            </iframe>
+            <p>Handle asynchronous code elegantly with async/await, explained through step-by-step animations.</p>
+          </div>
+
+          <!-- Add more video cards here as needed -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 SilentADX. All rights reserved.</p>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Library - SilentADX</title>
+  <meta name="description" content="Explore practical code snippets for web development, including HTML, CSS, JavaScript, and more. Learn with real-world examples from SilentADX.">
+  <meta name="keywords" content="web development, code snippets, HTML, CSS, JavaScript, tutorials">
+  <meta name="author" content="SilentADX">
+  
+  <!-- Favicon (add if you have one) -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Syntax Highlighting (optional, for better code display) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7neJlKqc+OcA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+wkhPbNmFyeK8/DCBcSiwo69bhplottlylHt8TjpD9jntzYI9qcL1X5T3xB8OA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>SilentADX</h1>
+      <p>Web Development Explained with 2D Animation</p>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tutorials.html">Tutorials</a></li>
+        <li><a href="code.html" class="active">Code</a></li>
+        <li><a href="premium.html">Premium</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <!-- Sliding indicator (animated via JS) -->
+      <span class="nav-indicator"></span>
+    </div>
+  </nav>
+
+  <main>
+    <section class="code-library">
+      <div class="container">
+        <h2>💻 Code Snippets</h2>
+        <p>Practical, copy-paste ready code examples to accelerate your web development journey. Each snippet includes explanations and use cases.</p>
+        
+        <!-- Category Tabs -->
+        <div class="tabs">
+          <button class="tab-button active" data-category="all">All</button>
+          <button class="tab-button" data-category="javascript">JavaScript</button>
+          <button class="tab-button" data-category="css">CSS</button>
+          <button class="tab-button" data-category="html">HTML</button>
+        </div>
+        
+        <div class="cards">
+          <div class="card" data-category="javascript">
+            <h3>JavaScript Closure</h3>
+            <pre><code class="language-javascript">// See ../js/closure-example.js for the full runnable example
+function outer() {
+  let count = 0;
+  return function() {
+    count++;
+    console.log(count);
+  }
+}</code></pre>
+            <p>Closures allow inner functions to access variables from their outer scope, even after the outer function has finished executing. Perfect for counters, event handlers, and data privacy. (Full example in JS folder.)</p>
+          </div>
+
+          <div class="card" data-category="css">
+            <h3>CSS Flexbox Layout</h3>
+            <pre><code class="language-css">.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}</code></pre>
+            <p>Use Flexbox for responsive layouts. This centers items horizontally and vertically with equal spacing between them.</p>
+          </div>
+
+          <div class="card" data-category="html">
+            <h3>HTML Semantic Structure</h3>
+            <pre><code class="language-html">&lt;header&gt;
+  &lt;h1&gt;Site Title&lt;/h1&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Content&lt;/h2&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+  &lt;p&gt;Copyright&lt;/p&gt;
+&lt;/footer&gt;</code></pre>
+            <p>Semantic HTML improves accessibility and SEO. Use elements like &lt;header&gt;, &lt;main&gt;, and &lt;footer&gt; to structure your page meaningfully.</p>
+          </div>
+
+          <div class="card" data-category="javascript">
+            <h3>JavaScript Async/Await</h3>
+            <pre><code class="language-javascript">async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}</code></pre>
+            <p>Handle asynchronous operations elegantly with async/await. This makes code more readable compared to promises.</p>
+          </div>
+
+          <!-- Add more cards here as needed, with appropriate data-category -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 SilentADX. All rights reserved.</p>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

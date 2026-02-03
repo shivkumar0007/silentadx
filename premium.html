@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Courses - SilentADX</title>
+  <meta name="description" content="Unlock premium animated courses on advanced web development topics. Learn JavaScript internals, CSS animations, and more with exclusive content from SilentADX.">
+  <meta name="keywords" content="premium courses, web development, JavaScript, CSS, animations, tutorials">
+  <meta name="author" content="SilentADX">
+  
+  <!-- Favicon (add if you have one) -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Login Check Script -->
+  <script>
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (!loggedInUser) {
+      window.location.href = 'login.html';  // Redirect to login if not logged in
+    }
+  </script>
+
+  <header>
+    <div class="container">
+      <h1>SilentADX</h1>
+      <p>Web Development Explained with 2D Animation</p>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tutorials.html">Tutorials</a></li>
+        <li><a href="code.html">Code</a></li>
+        <li><a href="premium.html" class="active">Premium</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" id="login-link">Login</a></li>
+      </ul>
+      <!-- Sliding indicator (animated via JS) -->
+      <span class="nav-indicator"></span>
+    </div>
+  </nav>
+
+  <main>
+    <section class="premium-courses">
+      <div class="container">
+        <h2>🔒 Premium Animated Courses</h2>
+        <p>Deep-dive into advanced web development with exclusive 2D animated courses. Gain expert-level knowledge, hands-on projects, and lifetime access. Perfect for serious learners!</p>
+        
+        <!-- Access Code Form and Buttons -->
+        <div class="form-and-buttons">
+          <div id="access-form" class="access-form">
+            <h3>Enter Access Code to Unlock Courses</h3>
+            <p>After payment, check your email/WhatsApp for the code.</p>
+            <input type="text" id="access-code" placeholder="Enter your access code" required>
+            <button id="unlock-btn">Unlock Course(s)</button>
+            <p id="error-msg" style="color: red; display: none;">Invalid code. Please try again.</p>
+          </div>
+          
+          <div class="buttons">
+            <button id="buy-courses-btn" class="buy-courses-btn">Buy Courses</button>
+            <button id="my-courses-btn" class="my-courses-btn">My Courses</button>
+          </div>
+        </div>
+        
+        <!-- All Courses Section (Visible by Default) -->
+        <div id="all-courses-section">
+          <h3>All Courses</h3>
+
+          <div class="cards" id="all-courses-cards">
+
+
+            <div class="card" data-course="js">
+              <h3>JavaScript Internals (Animated)</h3>
+              <p>Execution Context, Event Loop, Closures</p>
+              <div class="course-actions">
+                <a href="https://rzp.io/rzp/jS9wyvn" target="_blank" rel="noopener noreferrer">
+                  <button class="buy-btn">Buy ₹199</button>
+                </a>
+                <button class="view-btn" style="display: none;">View Now</button>
+              </div>
+              <div class="course-content" style="display: none;">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="JavaScript Internals Animated Course" allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <div class="card" data-course="css">
+              <h3>CSS Animations & Transitions</h3>
+              <p>Keyframes, transforms, performance</p>
+              <div class="course-actions">
+                <a href="https://rzp.io/rzp/another-link" target="_blank" rel="noopener noreferrer">
+                  <button class="buy-btn">Buy ₹149</button>
+                </a>
+                <button class="view-btn" style="display: none;">View Now</button>
+              </div>
+              <div class="course-content" style="display: none;">
+                 <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="JavaScript Internals Animated Course" allowfullscreen></iframe>
+              </div>
+            </div>
+
+
+            <div class="card" data-course="js1">
+              <h3> Transitions</h3>
+              <p>transforms, performance</p>
+              <div class="course-actions">
+                <a href="https://rzp.io/rzp/another-link" target="_blank" rel="noopener noreferrer">
+                  <button class="buy-btn">Buy ₹49</button>
+                </a>
+                <button class="view-btn" style="display: none;">View Now</button>
+              </div>
+              <div class="course-content" style="display: none;">
+                 <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="JavaScript Internals Animated Course" allowfullscreen></iframe>
+              </div>
+            </div>
+
+
+            <!-- Add more cards here -->
+          </div>
+        </div>
+        
+        <!-- Premium Courses Section (Hidden by Default, Shown on Buy Courses Click) -->
+        <div id="premium-section" style="display: none;">
+          <h3>Available Courses</h3>
+          <div class="cards" id="premium-cards">
+            <!-- Filtered unbought courses will be shown here -->
+          </div>
+        </div>
+        
+        <!-- My Courses Section (Hidden by Default, Shown on My Courses Click) -->
+        <div id="my-courses-section" class="my-courses-section" style="display: none;">
+          <h3>My Courses</h3>
+          <div class="cards" id="my-courses-cards">
+            <!-- Unlocked courses will be added here -->
+          </div>
+          <p id="no-courses-msg" style="display: none; color: #94a3b8;">No courses purchased yet. Buy a course to get started!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 SilentADX. All rights reserved.</p>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/premium-unlock.js"></script>
+  <script>
+    // Nav login/logout update
+    const loginLink = document.getElementById('login-link');
+    if (loggedInUser) {
+      loginLink.textContent = 'Logout';
+      loginLink.href = '#';
+      loginLink.addEventListener('click', () => {
+        localStorage.removeItem('loggedInUser');
+        window.location.href = 'index.html';
+      });
+    } else {
+      loginLink.textContent = 'Login';
+      loginLink.href = 'login.html';
+    }
+  </script>
+</body>
+</html>
