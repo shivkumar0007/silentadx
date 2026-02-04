@@ -50,6 +50,8 @@ function initScrollAnimations() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("show");
+      } else {
+        entry.target.classList.remove("show"); // Optional: remove on exit
       }
     });
   }, { threshold: 0.2 });
@@ -99,20 +101,25 @@ function initTabFiltering() {
   tabButtons.forEach(button => {
     button.addEventListener('click', () => {
       // Remove active class from all buttons
-      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
       // Add active class to clicked button
       button.classList.add('active');
+      button.setAttribute('aria-selected', 'true');
 
       const category = button.getAttribute('data-category');
 
       cards.forEach(card => {
         if (category === 'all' || card.getAttribute('data-category') === category) {
           card.style.display = 'block';
-          // Trigger animation immediately for better performance
-          card.classList.add('show');
+          // Use setTimeout to ensure display change before animation
+          setTimeout(() => card.classList.add('show'), 10);
         } else {
-          card.style.display = 'none';
           card.classList.remove('show');
+          // Delay hiding to allow animation to finish
+          setTimeout(() => card.style.display = 'none', 300);
         }
       });
     });

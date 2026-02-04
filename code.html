@@ -17,7 +17,7 @@
   <!-- Google Fonts for better typography -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   
-  <!-- Syntax Highlighting (optional, for better code display) -->
+  <!-- Syntax Highlighting -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7neJlKqc+OcA==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+wkhPbNmFyeK8/DCBcSiwo69bhplottlylHt8TjpD9jntzYI9qcL1X5T3xB8OA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
@@ -32,12 +32,22 @@
 
   <nav>
     <div class="container">
+      <!-- Hamburger Toggle (Hidden Checkbox) -->
+      <input type="checkbox" id="nav-toggle">
+      <!-- Hamburger Icon (Three Lines) -->
+      <label for="nav-toggle" id="nav-toggle-label">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="tutorials.html">Tutorials</a></li>
         <li><a href="code.html" class="active">Code</a></li>
         <li><a href="premium.html">Premium</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" id="login-link">Login</a></li>
       </ul>
       <!-- Sliding indicator (animated via JS) -->
       <span class="nav-indicator"></span>
@@ -51,11 +61,11 @@
         <p>Practical, copy-paste ready code examples to accelerate your web development journey. Each snippet includes explanations and use cases.</p>
         
         <!-- Category Tabs -->
-        <div class="tabs">
-          <button class="tab-button active" data-category="all">All</button>
-          <button class="tab-button" data-category="javascript">JavaScript</button>
-          <button class="tab-button" data-category="css">CSS</button>
-          <button class="tab-button" data-category="html">HTML</button>
+        <div class="tabs" role="tablist">
+          <button class="tab-button active" data-category="all" role="tab" aria-selected="true">All</button>
+          <button class="tab-button" data-category="javascript" role="tab">JavaScript</button>
+          <button class="tab-button" data-category="css" role="tab">CSS</button>
+          <button class="tab-button" data-category="html" role="tab">HTML</button>
         </div>
         
         <div class="cards">
