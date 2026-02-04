@@ -8,6 +8,9 @@
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="./css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Razorpay Checkout -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
@@ -26,15 +29,12 @@
   </div>
 </header>
 
-<!-- ✅ NAV ADDED -->
+<!-- ✅ NAV -->
 <nav>
   <div class="container">
     <input type="checkbox" id="nav-toggle">
-
     <label for="nav-toggle" id="nav-toggle-label">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </label>
 
     <ul>
@@ -56,21 +56,12 @@
 
 <h2>🔒 Premium Animated Courses</h2>
 
-<div class="form-and-buttons">
-  <div class="access-form">
-    <h3>Enter Access Code</h3>
-    <input type="text" id="access-code" placeholder="Enter access code">
-    <button id="unlock-btn">Unlock</button>
-    <p id="error-msg" style="display:none;color:red;"></p>
-  </div>
-
-  <div class="buttons">
-    <button id="buy-courses-btn">Buy Courses</button>
-    <button id="my-courses-btn">My Courses</button>
-  </div>
+<div class="buttons">
+  <button id="buy-courses-btn">Buy Courses</button>
+  <button id="my-courses-btn">My Courses</button>
 </div>
 
-<!-- ALL COURSES -->
+<!-- ================= ALL COURSES ================= -->
 <div id="all-courses-section">
 <h3>All Courses</h3>
 
@@ -81,12 +72,9 @@
     <h3>JavaScript Internals (Animated)</h3>
     <p>Execution Context, Event Loop, Closures</p>
 
-    <div class="course-actions">
-      <a href="https://rzp.io/rzp/jS9wyvn" target="_blank">
-        <button class="buy-btn">Buy ₹199</button>
-      </a>
-      <button class="view-btn" style="display:none;">View Now</button>
-    </div>
+    <button class="buy-btn" onclick="buyCourse('js', 99)">
+      Buy ₹99
+    </button>
 
     <div class="course-content"></div>
   </div>
@@ -96,27 +84,21 @@
     <h3>CSS Animations & Transitions</h3>
     <p>Keyframes, transforms, performance</p>
 
-    <div class="course-actions">
-      <a href="https://rzp.io/rzp/another-link" target="_blank">
-        <button class="buy-btn">Buy ₹149</button>
-      </a>
-      <button class="view-btn" style="display:none;">View Now</button>
-    </div>
+    <button class="buy-btn" onclick="buyCourse('css', 149)">
+      Buy ₹149
+    </button>
 
     <div class="course-content"></div>
   </div>
 
   <!-- COURSE 3 -->
   <div class="card" data-course="java">
-    <h3>Mastery</h3>
+    <h3>Java Mastery</h3>
     <p>Transforms & performance</p>
 
-    <div class="course-actions">
-      <a href="https://rzp.io/rzp/another-link" target="_blank">
-        <button class="buy-btn">Buy ₹49</button>
-      </a>
-      <button class="view-btn" style="display:none;">View Now</button>
-    </div>
+    <button class="buy-btn" onclick="buyCourse('java', 49)">
+      Buy ₹49
+    </button>
 
     <div class="course-content"></div>
   </div>
@@ -124,17 +106,19 @@
 </div>
 </div>
 
-<!-- PREMIUM FILTERED -->
+<!-- ================= BUY COURSES FILTER ================= -->
 <div id="premium-section" style="display:none;">
   <h3>Available Courses</h3>
   <div class="cards" id="premium-cards"></div>
 </div>
 
-<!-- MY COURSES -->
+<!-- ================= MY COURSES ================= -->
 <div id="my-courses-section" style="display:none;">
   <h3>My Courses</h3>
   <div class="cards" id="my-courses-cards"></div>
-  <p id="no-courses-msg" style="display:none;">No courses purchased yet.</p>
+  <p id="no-courses-msg" style="display:none;">
+    No courses purchased yet.
+  </p>
 </div>
 
 </div>
@@ -145,7 +129,7 @@
 <script src="./js/premium-unlock.js"></script>
 
 <script>
-  // 🔐 Login / Logout text update
+  // 🔐 Login / Logout toggle
   const loginLink = document.getElementById("login-link");
   if (loggedInUser) {
     loginLink.textContent = "Logout";

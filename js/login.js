@@ -1,5 +1,5 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbzjE10FTnD7ggptin96puZtfQNmzCoPcwofOVwkIHWWMacarFaDPHCDiEUEu6wz3LFhBg/exec';
+  'https://script.google.com/macros/s/AKfycbzfNcp9IttPVYFN0uz70HahSQ-yhzjnUvKYqLFxTpSg4iVhO9YygrFOM5MAjT1YOITq0A/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   const loginTab = document.getElementById('login-tab');

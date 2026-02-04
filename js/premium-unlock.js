@@ -2,13 +2,18 @@ console.log("Premium unlock script loaded");
 
 // ✅ Apps Script URL
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzjE10FTnD7ggptin96puZtfQNmzCoPcwofOVwkIHWWMacarFaDPHCDiEUEu6wz3LFhBg/exec";
+  "https://script.google.com/macros/s/AKfycbzfNcp9IttPVYFN0uz70HahSQ-yhzjnUvKYqLFxTpSg4iVhO9YygrFOM5MAjT1YOITq0A/exec";
+
+// ✅ Razorpay TEST KEY (later LIVE se replace kar dena)
+const RZP_KEY = "rzp_test_SCBRYHk2Rhhl1I";
 
 document.addEventListener("DOMContentLoaded", async () => {
 
   /* ================= AUTH ================= */
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
   const userId = loggedInUser.userId;
+  const userEmail = loggedInUser.email || "";
+
   if (!userId) {
     location.href = "login.html";
     return;
@@ -19,10 +24,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     JSON.parse(localStorage.getItem("myCourses")) || [];
 
   /* ================= UI ================= */
-  const unlockBtn = document.getElementById("unlock-btn");
-  const accessCodeInput = document.getElementById("access-code");
-  const errorMsg = document.getElementById("error-msg");
-
   const buyCoursesBtn = document.getElementById("buy-courses-btn");
   const myCoursesBtn = document.getElementById("my-courses-btn");
 
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const myCoursesCards = document.getElementById("my-courses-cards");
   const noCoursesMsg = document.getElementById("no-courses-msg");
 
-  /* ================= HELPERS ================= */
+  /* ================= VIDEO CACHE ================= */
 
   const embedCacheKey = c => `embed_${c}`;
 
@@ -60,9 +61,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     return data.embed;
   }
 
+  /* ================= BACKEND SYNC ================= */
+
   async function syncCoursesFromBackend() {
     try {
-      const res = await fetch(`${SCRIPT_URL}?action=getCourses&userId=${userId}`);
+      const res = await fetch(
+        `${SCRIPT_URL}?action=getCourses&userId=${userId}`
+      );
       const data = await res.json();
       unlockedCourses = data.courses || [];
       localStorage.setItem("myCourses", JSON.stringify(unlockedCourses));
@@ -70,41 +75,57 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch {}
   }
 
-  /* ================= UNLOCK ================= */
-  async function verifyCode(code) {
+  /* ================= RAZORPAY BUY ================= */
+
+  window.buyCourse = function (courseId, price) {
+
+    const options = {
+      key: RZP_KEY,
+      amount: price * 100, // paise
+      currency: "INR",
+      name: "SilentADX",
+      description: "Premium Course",
+      prefill: {
+        email: userEmail
+      },
+      notes: {
+        userId: userId,
+        courseId: courseId
+      },
+      handler: function (response) {
+        // ✅ SUCCESS ONLY
+        paymentSuccess(response.razorpay_payment_id, courseId);
+      }
+    };
+
+    new Razorpay(options).open();
+  };
+
+  async function paymentSuccess(paymentId, courseId) {
     const res = await fetch(SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
-        action: "verifyCode",
+        action: "paymentSuccess",
+        paymentId,
         userId,
-        code
+        courseId
       })
     });
-    return res.json();
+
+    const data = await res.json();
+    if (!data.success) return;
+
+    if (!unlockedCourses.includes(courseId)) {
+      unlockedCourses.push(courseId);
+      localStorage.setItem("myCourses", JSON.stringify(unlockedCourses));
+    }
+
+    renderAll();
+    alert("Payment successful 🎉 Course unlocked!");
   }
 
-  unlockBtn.onclick = async () => {
-    const code = accessCodeInput.value.trim();
-    if (!code) return;
-
-    errorMsg.style.display = "none";
-    const result = await verifyCode(code);
-
-    if (!result.success) {
-      errorMsg.textContent = result.message || "Invalid code";
-      errorMsg.style.display = "block";
-      return;
-    }
-
-    if (!unlockedCourses.includes(result.course)) {
-      unlockedCourses.push(result.course);
-      localStorage.setItem("myCourses", JSON.stringify(unlockedCourses));
-      renderAll();
-    }
-  };
-
-  /* ================= RENDER LOGIC ================= */
+  /* ================= RENDER ================= */
 
   function renderAll() {
     renderAllCourses();
@@ -115,12 +136,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     allCoursesCards.querySelectorAll(".card").forEach(card => {
       const course = card.dataset.course;
       const buyBtn = card.querySelector(".buy-btn");
-      const viewBtn = card.querySelector(".view-btn");
       const content = card.querySelector(".course-content");
 
       if (unlockedCourses.includes(course)) {
         buyBtn?.remove();
-        viewBtn?.remove();
         setupVideo(content, course);
       } else {
         content.innerHTML = "";
@@ -139,12 +158,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     noCoursesMsg.style.display = "none";
 
     unlockedCourses.forEach(course => {
-      const original = allCoursesCards.querySelector(`[data-course="${course}"]`);
+      const original =
+        allCoursesCards.querySelector(`[data-course="${course}"]`);
       if (!original) return;
 
       const clone = original.cloneNode(true);
       clone.querySelector(".buy-btn")?.remove();
-      clone.querySelector(".view-btn")?.remove();
 
       const content = clone.querySelector(".course-content");
       setupVideo(content, course);
@@ -153,7 +172,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  /* ================= VIDEO (FAST) ================= */
+  /* ================= FAST VIDEO LOAD ================= */
 
   function setupVideo(container, course) {
     if (container.dataset.ready) return;
@@ -164,23 +183,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         ▶ Video loads when visible
       </div>
     `;
-    observe(container);
+    observer.observe(container);
   }
 
   const observer = new IntersectionObserver(async entries => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
 
-      const box = entry.target;
-      observer.unobserve(box);
+      observer.unobserve(entry.target);
 
-      const course = box.querySelector(".video-placeholder")?.dataset.course;
+      const course =
+        entry.target.querySelector(".video-placeholder")?.dataset.course;
       if (!course) return;
 
       const embed = await fetchEmbed(course);
       if (!embed) return;
 
-      box.innerHTML = `
+      entry.target.innerHTML = `
         <iframe
           width="100%"
           height="315"
@@ -192,16 +211,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }, { threshold: 0.3 });
 
-  function observe(el) {
-    observer.observe(el);
-  }
-
   /* ================= NAV ================= */
 
   buyCoursesBtn.onclick = () => {
     allCoursesSection.style.display = "none";
     myCoursesSection.style.display = "none";
     premiumSection.style.display = "block";
+
+    premiumCards.innerHTML = "";
+    allCoursesCards.querySelectorAll(".card").forEach(card => {
+      const course = card.dataset.course;
+      if (!unlockedCourses.includes(course)) {
+        premiumCards.appendChild(card.cloneNode(true));
+      }
+    });
   };
 
   myCoursesBtn.onclick = () => {
@@ -212,8 +235,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ================= INIT ================= */
 
-  renderAll();               // ⚡ instant (localStorage)
-  syncCoursesFromBackend();  // 🔁 background sync
+  renderAll();               // ⚡ instant
+  syncCoursesFromBackend();  // 🔁 background
 
   window.unlockCourse = () => console.warn("Blocked");
 });
