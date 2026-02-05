@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
           );
 
           // ✅ Redirect
-          window.location.href = 'index.html';
+          window.location.href = 'premium.html';
         } else {
           authMsg.textContent = result.message || 'Authentication failed';
           authMsg.style.display = 'block';

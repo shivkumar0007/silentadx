@@ -1,10 +1,17 @@
 /* ===============================
-   LOGIN PAGE - ALTERNATIVE MODERN DESIGN
+   1. GLOBAL THEME & RESET
 =============================== */
-
-body {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -14,11 +21,21 @@ body {
   color: #e5e7eb;
   font-size: 16px;
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+*:focus {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+/* ===============================
+   2. LOGIN CONTAINER
+=============================== */
 .login-container {
-  background: rgba(30, 41, 59, 0.9); /* Semi-transparent dark background */
-  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  background: rgba(30, 41, 59, 0.9);
+  backdrop-filter: blur(10px);
   padding: 60px 50px;
   width: 100%;
   max-width: 450px;
@@ -27,6 +44,12 @@ body {
   text-align: center;
   border: 1px solid rgba(56, 189, 248, 0.2);
   position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
 }
 
 .login-container::before {
@@ -47,6 +70,7 @@ body {
   color: #38bdf8;
   text-shadow: 0 2px 10px rgba(56, 189, 248, 0.5);
   letter-spacing: 1.2px;
+  animation: fadeInUp 0.8s ease;
 }
 
 .login-container p {
@@ -55,100 +79,12 @@ body {
   font-weight: 400;
   font-size: 1.1rem;
   opacity: 0.9;
+  animation: fadeInUp 1s ease;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column; /* Ensures vertical stacking: email input, then password input, then login button */
-  gap: 25px; /* Space between each element */
-}
-
-.login-form input[type="email"],
-.login-form input[type="password"] {
-  padding: 18px 20px;
-  font-size: 1.1rem;
-  border-radius: 12px;
-  border: 2px solid transparent;
-  background: rgba(51, 65, 85, 0.8);
-  color: #e5e7eb;
-  transition: all 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
-  position: relative;
-}
-
-.login-form input[type="email"]::placeholder,
-.login-form input[type="password"]::placeholder {
-  color: #94a3b8;
-  font-style: italic;
-  opacity: 0.7;
-}
-
-.login-form input[type="email"]:focus,
-.login-form input[type="password"]:focus {
-  border-color: #38bdf8;
-  background: rgba(30, 41, 59, 0.9);
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-  transform: translateY(-2px);
-}
-
-.login-form button {
-  padding: 18px 0;
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-  color: #020617;
-  font-weight: 700;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
-  transition: all 0.3s ease;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.login-form button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.login-form button:hover:not(:disabled)::before {
-  left: 100%;
-}
-
-.login-form button:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(56, 189, 248, 0.6);
-}
-
-.login-form button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
-}
-
-#auth-msg {
-  margin-top: 25px;
-  font-weight: 600;
-  font-size: 1rem;
-  min-height: 28px;
-  color: #f87171; /* error red */
-  transition: color 0.3s ease;
-}
-
-#auth-msg.success {
-  color: #4ade80; /* success green */
-}
-
-/* Tabs if needed */
+/* ===============================
+   3. TABS
+=============================== */
 .tabs {
   display: flex;
   justify-content: center;
@@ -168,6 +104,7 @@ body {
   user-select: none;
   border: 2px solid transparent;
   font-size: 1.1rem;
+  min-height: 48px;
 }
 
 .tab.active {
@@ -175,45 +112,310 @@ body {
   color: #020617;
   border-color: #0ea5e9;
   box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px);
 }
 
-/* Responsive */
+.tab:hover:not(.active) {
+  background: rgba(51, 65, 85, 0.9);
+  color: #cbd5f5;
+}
+
+/* ===============================
+   4. FORMS
+=============================== */
+#login-form,
+#forgot-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+#forgot-password-form {
+  display: none;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #cbd5f5;
+  font-size: 0.95rem;
+}
+
+/* ===============================
+   5. INPUTS
+=============================== */
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  padding: 18px 20px;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: rgba(51, 65, 85, 0.8);
+  color: #e5e7eb;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 48px;
+}
+
+input::placeholder {
+  color: #94a3b8;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+input:focus {
+  border-color: #38bdf8;
+  background: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   6. BUTTONS
+=============================== */
+button {
+  padding: 18px 0;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #020617;
+  font-weight: 700;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+  transition: all 0.3s ease;
+  width: 100%;
+  min-height: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+button:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(56, 189, 248, 0.6);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ===============================
+   7. LINKS
+=============================== */
+#forgot-password-link,
+#back-to-login {
+  color: #38bdf8;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+  margin-top: 15px;
+  display: inline-block;
+}
+
+#forgot-password-link:hover,
+#back-to-login:hover {
+  color: #0ea5e9;
+  text-decoration: underline;
+}
+
+/* ===============================
+   8. MESSAGES
+=============================== */
+#auth-msg {
+  margin-top: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  min-height: 28px;
+  color: #f87171;
+  transition: color 0.3s ease;
+  animation: fadeIn 0.5s ease;
+}
+
+#auth-msg.success {
+  color: #4ade80;
+}
+
+/* ===============================
+   9. ANIMATIONS
+=============================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===============================
+   10. MOBILE RESPONSIVE
+=============================== */
+/* Large Tablets (1024px and below) */
+@media (max-width: 1024px) {
+  .login-container {
+    max-width: 400px;
+    padding: 50px 40px;
+  }
+  .login-container h1 {
+    font-size: 2.5rem;
+  }
+  #login-form,
+  #forgot-password-form {
+    gap: 22px;
+  }
+}
+
+/* Tablets and Small Laptops (768px and below) */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+  .login-container {
+    max-width: 380px;
+    padding: 45px 35px;
+  }
+  .login-container h1 {
+    font-size: 2.3rem;
+  }
+  .login-container p {
+    font-size: 1rem;
+  }
+  #login-form,
+  #forgot-password-form {
+    gap: 20px;
+  }
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] {
+    padding: 16px 18px;
+    font-size: 1rem;
+  }
+  button {
+    padding: 16px 0;
+    font-size: 1.1rem;
+  }
+  .tabs {
+    gap: 12px;
+  }
+  .tab {
+    padding: 14px 0;
+    font-size: 1rem;
+  }
+}
+
+/* Large Phones (480px and below) */
 @media (max-width: 480px) {
+  body {
+    font-size: 14px;
+    padding: 10px;
+  }
   .login-container {
     padding: 40px 30px;
     width: 90%;
     margin: 20px;
+    border-radius: 16px;
   }
-
-  body {
-    font-size: 14px;
-  }
-
   .login-container h1 {
     font-size: 2.2rem;
+    letter-spacing: 1px;
   }
-
-  .login-form {
-    gap: 20px;
-  }
-
-  .login-form input[type="email"],
-  .login-form input[type="password"] {
-    padding: 16px 18px;
+  .login-container p {
+    margin-bottom: 30px;
     font-size: 1rem;
   }
-
-  .login-form button {
+  #login-form,
+  #forgot-password-form {
+    gap: 18px;
+  }
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] {
+    padding: 16px 18px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+  button {
     padding: 16px 0;
     font-size: 1.1rem;
+    border-radius: 10px;
   }
-
   .tabs {
     gap: 10px;
+    margin-bottom: 25px;
   }
-
   .tab {
     padding: 14px 0;
     font-size: 1rem;
+    border-radius: 10px;
+  }
+  #auth-msg {
+    font-size: 0.95rem;
+  }
+  #forgot-password-link,
+  #back-to-login {
+    font-size: 0.9rem;
+  }
+}
+
+/* Small Phones (360px and below) */
+@media (max-width: 360px) {
+  .login-container {
+    padding: 30px 20px;
+    width: 95%;
+  }
+  .login-container h1 {
+    font-size: 2rem;
+  }
+  #login-form,
+  #forgot-password-form {
+    gap: 15px;
+  }
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] {
+    padding: 14px 16px;
+  }
+  button {
+    padding: 14px 0;
+  }
+  .tab {
+    padding: 12px 0;
   }
 }

@@ -1,0 +1,274 @@
+/* ===============================
+   1. GLOBAL THEME & RESET
+=============================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", system-ui, -apple-system, sans-serif;
+  background: #020617; /* Solid fallback */
+  background: linear-gradient(120deg, #020617, #0f172a);
+  color: #e5e7eb;
+  line-height: 1.6;
+  font-size: 16px;
+  overflow-x: hidden; /* Prevent global horizontal scroll */
+}
+
+a {
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+/* ===============================
+   2. CONTAINER
+=============================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===============================
+   3. HEADER & NAV
+=============================== */
+header {
+  padding: 60px 0;
+  text-align: center;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+}
+
+header h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem); /* Responsive font size */
+  color: #38bdf8;
+  animation: fadeDown 1s ease;
+  line-height: 1.2;
+}
+
+header p {
+  margin-top: 10px;
+  color: #94a3b8;
+  animation: fadeUp 1.2s ease;
+  font-size: 1.1rem;
+}
+
+nav {
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+#nav-toggle { display: none; }
+
+#nav-toggle-label {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 1001;
+  width: 30px;
+  height: 24px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#nav-toggle-label span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+#nav-toggle:checked ~ #nav-toggle-label span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+#nav-toggle:checked ~ #nav-toggle-label span:nth-child(2) { opacity: 0; }
+#nav-toggle:checked ~ #nav-toggle-label span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 15px 0;
+  list-style: none;
+}
+
+nav a {
+  color: #e5e7eb;
+  font-weight: 500;
+  padding: 8px 5px;
+  position: relative;
+}
+
+nav a:hover, nav a.active { color: #38bdf8; }
+
+/* ===============================
+   4. HERO SECTION
+=============================== */
+.hero {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 15px;
+  color: #f1f5f9;
+}
+
+/* ===============================
+   5. BUTTONS
+=============================== */
+.cta-button, button, .my-courses-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #020617;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+}
+
+/* ===============================
+   6. CARDS GRID & INDEPENDENT SCROLL
+=============================== */
+.features, .code-library, .tutorials, .premium-courses {
+  padding: 60px 0;
+}
+
+.cards {
+  display: grid;
+  /* min(100%) ensures cards never exceed screen width */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 25px;
+  padding: 10px;
+}
+
+.card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  padding: 25px;
+  border-radius: 14px;
+  text-align: left;
+  transition: 0.3s ease;
+  /* Fix: prevents code from stretching the card */
+  min-width: 0; 
+  overflow: hidden; 
+}
+
+.card:hover {
+  border-color: #38bdf8;
+  transform: translateY(-5px);
+}
+
+.card h3 { color: #38bdf8; margin-bottom: 12px; }
+
+/* CODE BLOCK: Independent Scroll Logic */
+.card pre {
+  background: #020617;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+  border: 1px solid #1e293b;
+  color: #a5f3fc;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  
+  /* The Magic Lines */
+  display: block;
+  width: 100%;
+  overflow-x: auto; /* Independent horizontal scroll */
+  white-space: pre; /* Keep code formatting */
+  -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS */
+}
+
+/* Custom Scrollbar for Code Blocks */
+.card pre::-webkit-scrollbar {
+  height: 5px;
+}
+.card pre::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+.card pre::-webkit-scrollbar-thumb:hover {
+  background: #38bdf8;
+}
+
+/* ===============================
+   7. FORMS (Login/Contact)
+=============================== */
+.login-box, .contact-form {
+  background: #0f172a;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 500px;
+  margin: 40px auto;
+  border: 1px solid #1e293b;
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 12px;
+  background: #020617;
+  border: 1px solid #334155;
+  color: white;
+  border-radius: 8px;
+  margin-top: 8px;
+  font-size: 16px; /* Avoid iOS auto-zoom */
+}
+
+/* ===============================
+   8. MOBILE RESPONSIVE
+=============================== */
+@media (max-width: 768px) {
+  #nav-toggle-label { display: flex; }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #020617;
+    padding: 20px;
+    border-bottom: 1px solid #1e293b;
+  }
+
+  #nav-toggle:checked ~ ul { display: flex; }
+
+  .hero { padding: 40px 10px; }
+  
+  /* Section Padding for mobile */
+  .features, .code-library { padding: 40px 0; }
+
+  /* Code block text size on mobile */
+  .card pre {
+    font-size: 0.8rem;
+    padding: 12px;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -165,158 +165,165 @@ nav a.active::after {
 }
 
 /* ===============================
-   4. HERO SECTION
+   4. SECTIONS
 =============================== */
-.hero {
-  padding: 80px 20px;
-  text-align: center;
-}
-
-.hero h2 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-  animation: fadeUp 1s ease;
-  color: #f1f5f9;
-}
-
-.hero p {
-  color: #94a3b8;
-  margin-bottom: 30px;
-  animation: fadeUp 1.3s ease;
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ===============================
-   5. BUTTONS (Global)
-=============================== */
-.cta-button,
-button,
-.my-courses-btn {
-  display: inline-block;
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-  color: #020617;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-size: 1rem;
-  text-align: center;
-  min-height: 44px;
-}
-
-.cta-button:hover,
-button:hover,
-.my-courses-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
-}
-
-/* ===============================
-   6. SECTIONS & CARDS GRID
-=============================== */
-.features,
-.tutorials,
-.premium-courses,
 .contact {
   padding: 60px 0;
   text-align: center;
 }
 
-.features h2,
-.tutorials h2,
-.premium-courses h2,
 .contact h2 {
   font-size: 2rem;
   color: #38bdf8;
+  margin-bottom: 20px;
+}
+
+.contact p {
+  color: #cbd5f5;
   margin-bottom: 40px;
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.cards {
+/* ===============================
+   5. CONTACT INFO GRID
+=============================== */
+.contact-info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
-  padding: 0 10px;
+  margin-bottom: 50px;
   max-width: 1000px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.card {
+.info-item {
   background: #020617;
   border: 1px solid #0f172a;
-  padding: 30px;
-  border-radius: 16px;
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 0.4s ease;
-  text-align: left;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.card:hover {
+.info-item:hover {
   border-color: #38bdf8;
   transform: translateY(-5px);
   box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
 }
 
-.card h3 {
+.info-item h3 {
   color: #38bdf8;
   margin-bottom: 15px;
   font-size: 1.25rem;
 }
 
-.card p {
+.info-item p {
   color: #cbd5f5;
   font-size: 1rem;
-  line-height: 1.7;
-}
-
-/* ===============================
-   7. TESTIMONIALS
-=============================== */
-.testimonials {
-  background: #0f172a;
-  padding: 60px 0;
-}
-
-.testimonials h2 {
-  font-size: 2rem;
-  color: #38bdf8;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.testimonials blockquote {
-  font-style: italic;
-  color: #cbd5f5;
-  margin: 20px auto;
-  padding: 30px;
-  border-left: 4px solid #38bdf8;
-  background: #020617;
-  border-radius: 12px;
-  max-width: 700px;
-  font-size: 1.1rem;
   line-height: 1.6;
-  position: relative;
 }
 
-.testimonials blockquote::before {
-  content: '"';
-  font-size: 3rem;
+.info-item a {
   color: #38bdf8;
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  opacity: 0.5;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.info-item a:hover {
+  color: #0ea5e9;
 }
 
 /* ===============================
-   8. FOOTER
+   6. CONTACT FORM
+=============================== */
+.contact-form {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid #1e293b;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  color: #cbd5f5;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #e5e7eb;
+  font-family: inherit;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #38bdf8;
+  background: #0f172a;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form button {
+  width: 100%;
+  padding: 16px 0;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #020617;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 48px;
+}
+
+.contact-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+}
+
+/* ===============================
+   7. FOOTER
 =============================== */
 footer {
   padding: 40px 0;
@@ -346,7 +353,7 @@ footer a:hover {
 }
 
 /* ===============================
-   9. ANIMATIONS
+   8. ANIMATIONS
 =============================== */
 @keyframes fadeUp {
   from {
@@ -371,7 +378,7 @@ footer a:hover {
 }
 
 /* ===============================
-   10. MOBILE RESPONSIVE
+   9. MOBILE RESPONSIVE
 =============================== */
 /* Large Tablets (1024px and below) */
 @media (max-width: 1024px) {
@@ -381,18 +388,16 @@ footer a:hover {
   header h1 {
     font-size: 2.5rem;
   }
-  .hero h2 {
-    font-size: 2rem;
-  }
-  nav ul {
-    gap: 20px;
-  }
-  .cards {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  .contact-info {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 25px;
   }
-  .card {
-    padding: 25px;
+  .info-item {
+    padding: 20px;
+  }
+  .contact-form {
+    padding: 35px;
+    max-width: 550px;
   }
 }
 
@@ -431,42 +436,36 @@ footer a:hover {
   header h1 {
     font-size: 2.2rem;
   }
-  .hero h2 {
-    font-size: 1.8rem;
-  }
-  .features h2,
-  .tutorials h2,
-  .premium-courses h2,
-  .contact h2,
-  .testimonials h2 {
+  .contact h2 {
     font-size: 1.8rem;
   }
   .container {
     padding: 0 15px;
   }
-  .hero {
-    padding: 60px 20px;
-  }
-  .features,
-  .tutorials,
-  .premium-courses,
-  .contact,
-  .testimonials {
+  .contact {
     padding: 50px 0;
   }
-  .cards {
+  .contact-info {
     grid-template-columns: 1fr;
     gap: 20px;
-    padding: 0;
   }
-  .card {
+  .info-item {
     padding: 20px;
+    border-radius: 10px;
+  }
+  .contact-form {
+    padding: 30px 25px;
+    max-width: 100%;
     border-radius: 12px;
   }
-  .testimonials blockquote {
-    padding: 25px;
+  .form-group input,
+  .form-group textarea {
+    padding: 14px;
+    font-size: 16px;
+  }
+  .contact-form button {
+    padding: 16px 0;
     font-size: 1rem;
-    margin: 15px auto;
   }
   footer ul {
     gap: 15px;
@@ -478,43 +477,44 @@ footer a:hover {
   header {
     padding: 40px 0;
   }
-  .hero {
-    padding: 50px 0;
-  }
-  .features,
-  .tutorials,
-  .premium-courses,
-  .contact,
-  .testimonials {
+  .contact {
     padding: 40px 0;
   }
   header h1 {
     font-size: 2rem;
   }
-  .hero h2 {
+  .contact h2 {
     font-size: 1.5rem;
   }
-  .features h2,
-  .tutorials h2,
-  .premium-courses h2,
-  .contact h2,
-  .testimonials h2 {
-    font-size: 1.5rem;
+  .contact p {
+    font-size: 1rem;
+    margin-bottom: 30px;
   }
-  .cta-button,
-  button,
-  .my-courses-btn {
-    padding: 14px 20px;
-    font-size: 0.95rem;
-    width: 100%;
-    max-width: 300px;
+  .contact-info {
+    gap: 15px;
   }
-  .card {
+  .info-item {
     padding: 18px;
   }
-  .testimonials blockquote {
-    padding: 20px;
+  .info-item h3 {
+    font-size: 1.2rem;
+  }
+  .contact-form {
+    padding: 25px 20px;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
     font-size: 0.95rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    padding: 12px 14px;
+  }
+  .contact-form button {
+    padding: 14px 0;
+    font-size: 1rem;
   }
   footer {
     padding: 30px 0;
@@ -522,5 +522,22 @@ footer a:hover {
   footer ul {
     flex-direction: column;
     gap: 10px;
+  }
+}
+
+/* Small Phones (360px and below) */
+@media (max-width: 360px) {
+  .info-item {
+    padding: 15px;
+  }
+  .contact-form {
+    padding: 20px 15px;
+  }
+  .form-group input,
+  .form-group textarea {
+    padding: 10px 12px;
+  }
+  .contact-form button {
+    padding: 12px 0;
   }
 }
