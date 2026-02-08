@@ -524,3 +524,23 @@ footer a:hover {
     gap: 10px;
   }
 }
+
+.course-locked {
+  width: 100%;
+  height: 220px;              /* 🔑 same height for all cards */
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0b1220;        /* dark fallback */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.course-locked img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* 👈 image cut nahi hogi */
+  object-position: center;
+}
+

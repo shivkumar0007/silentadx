@@ -8,7 +8,6 @@ const SCRIPT_URL =
 const RZP_KEY = "rzp_test_SCBRYHk2Rhhl1I";
 
 document.addEventListener("DOMContentLoaded", async () => {
-
   /* ================= AUTH ================= */
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
   const userId = loggedInUser.userId;
@@ -19,9 +18,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // ✅ SAFE EMBED VALIDATOR (ADD THIS AT TOP)
+  function safeEmbed(url) {
+    if (!url) return null;
+    if (typeof url !== "string") return null;
+    if (!url.includes("youtube.com/embed/")) return null;
+    return url;
+  }
+
   /* ================= STATE ================= */
-  let unlockedCourses =
-    JSON.parse(localStorage.getItem("myCourses")) || [];
+  let unlockedCourses = JSON.parse(localStorage.getItem("myCourses")) || [];
 
   /* ================= UI ================= */
   const buyCoursesBtn = document.getElementById("buy-courses-btn");
@@ -38,11 +44,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ================= VIDEO CACHE ================= */
 
-  const embedCacheKey = c => `embed_${c}`;
+  const embedCacheKey = (c) => `embed_${c}`;
 
   async function fetchEmbed(course) {
     const cached = localStorage.getItem(embedCacheKey(course));
-    if (cached) return cached;
+    if (cached && cached.includes("youtube.com/embed/")) return cached;
 
     const res = await fetch(SCRIPT_URL, {
       method: "POST",
@@ -50,15 +56,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       body: new URLSearchParams({
         action: "getCourse",
         userId,
-        courseId: course
-      })
+        courseId: course,
+      }),
     });
 
     const data = await res.json();
     if (!data.success) return null;
 
-    localStorage.setItem(embedCacheKey(course), data.embed);
-    return data.embed;
+    const safe = safeEmbed(data.embed);
+    if (!safe) return null;
+
+    localStorage.setItem(embedCacheKey(course), safe);
+    return safe;
   }
 
   /* ================= BACKEND SYNC ================= */
@@ -66,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   async function syncCoursesFromBackend() {
     try {
       const res = await fetch(
-        `${SCRIPT_URL}?action=getCourses&userId=${userId}`
+        `${SCRIPT_URL}?action=getCourses&userId=${userId}`,
       );
       const data = await res.json();
       unlockedCourses = data.courses || [];
@@ -78,7 +87,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   /* ================= RAZORPAY BUY ================= */
 
   window.buyCourse = function (courseId, price) {
-
     const options = {
       key: RZP_KEY,
       amount: price * 100, // paise
@@ -86,16 +94,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       name: "SilentADX",
       description: "Premium Course",
       prefill: {
-        email: userEmail
+        email: userEmail,
       },
       notes: {
         userId: userId,
-        courseId: courseId
+        courseId: courseId,
       },
       handler: function (response) {
         // ✅ SUCCESS ONLY
         paymentSuccess(response.razorpay_payment_id, courseId);
-      }
+      },
     };
 
     new Razorpay(options).open();
@@ -109,8 +117,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         action: "paymentSuccess",
         paymentId,
         userId,
-        courseId
-      })
+        courseId,
+      }),
     });
 
     const data = await res.json();
@@ -133,7 +141,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function renderAllCourses() {
-    allCoursesCards.querySelectorAll(".card").forEach(card => {
+    allCoursesCards.querySelectorAll(".card").forEach((card) => {
       const course = card.dataset.course;
       const buyBtn = card.querySelector(".buy-btn");
       const content = card.querySelector(".course-content");
@@ -142,7 +150,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         buyBtn?.remove();
         setupVideo(content, course);
       } else {
-        content.innerHTML = "";
+        // ❌ NOT BOUGHT → image rehni chahiye
+        if (!content.querySelector(".course-locked")) {
+          content.innerHTML = `
+      <div class="course-locked">
+        <img src="./images/locked-course.jpg" alt="Locked Course">
+      </div>
+    `;
+        }
       }
     });
   }
@@ -157,9 +172,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     noCoursesMsg.style.display = "none";
 
-    unlockedCourses.forEach(course => {
-      const original =
-        allCoursesCards.querySelector(`[data-course="${course}"]`);
+    unlockedCourses.forEach((course) => {
+      const original = allCoursesCards.querySelector(
+        `[data-course="${course}"]`,
+      );
       if (!original) return;
 
       const clone = original.cloneNode(true);
@@ -174,32 +190,37 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ================= FAST VIDEO LOAD ================= */
 
-  function setupVideo(container, course) {
-    if (container.dataset.ready) return;
+ function setupVideo(container, course) {
+  if (container.dataset.ready) return;
 
-    container.dataset.ready = "1";
-    container.innerHTML = `
-      <div class="video-placeholder" data-course="${course}">
-        ▶ Video loads when visible
-      </div>
-    `;
-    observer.observe(container);
-  }
+  container.dataset.ready = "1";
 
-  const observer = new IntersectionObserver(async entries => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
+  // ✅ REMOVE LOCK IMAGE
+  container.innerHTML = `
+    <div class="video-placeholder" data-course="${course}">
+      ▶ Video loads when visible
+    </div>
+  `;
 
-      observer.unobserve(entry.target);
+  observer.observe(container);
+}
 
-      const course =
-        entry.target.querySelector(".video-placeholder")?.dataset.course;
-      if (!course) return;
 
-      const embed = await fetchEmbed(course);
-      if (!embed) return;
+  const observer = new IntersectionObserver(
+    async (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
 
-      entry.target.innerHTML = `
+        observer.unobserve(entry.target);
+
+        const course =
+          entry.target.querySelector(".video-placeholder")?.dataset.course;
+        if (!course) return;
+
+        const embed = await fetchEmbed(course);
+        if (!embed) return;
+
+        entry.target.innerHTML = `
         <iframe
           width="100%"
           height="315"
@@ -208,8 +229,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           allowfullscreen>
         </iframe>
       `;
-    }
-  }, { threshold: 0.3 });
+      }
+    },
+    { threshold: 0.3 },
+  );
 
   /* ================= NAV ================= */
 
@@ -219,7 +242,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     premiumSection.style.display = "block";
 
     premiumCards.innerHTML = "";
-    allCoursesCards.querySelectorAll(".card").forEach(card => {
+    allCoursesCards.querySelectorAll(".card").forEach((card) => {
       const course = card.dataset.course;
       if (!unlockedCourses.includes(course)) {
         premiumCards.appendChild(card.cloneNode(true));
@@ -235,8 +258,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ================= INIT ================= */
 
-  renderAll();               // ⚡ instant
-  syncCoursesFromBackend();  // 🔁 background
+  renderAll(); // ⚡ instant
+  syncCoursesFromBackend(); // 🔁 background
 
   window.unlockCourse = () => console.warn("Blocked");
 });
